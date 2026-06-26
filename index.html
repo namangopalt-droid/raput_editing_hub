@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rajput Editing Hub — Video Editing Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#070708;
+    --panel:#121214;
+    --panel-2:#1A1A1D;
+    --cream:#F4F4F6;
+    --amber:#FF2E45;
+    --rust:#2F6FFF;
+    --line: rgba(244,244,246,0.12);
+    --muted: rgba(244,244,246,0.58);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--black);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    letter-spacing:0.02em;
+    margin:0;
+    text-transform:uppercase;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+
+  /* sprocket strip */
+  .sprocket{
+    height:18px;
+    background-image: radial-gradient(circle, var(--black) 4px, transparent 4.5px);
+    background-size: 28px 18px;
+    background-position: 10px center;
+    background-color: var(--amber);
+  }
+  .sprocket.bottom{transform:scaleY(-1);}
+
+  /* NAV */
+  nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 6vw;
+    position:sticky;
+    top:0;
+    background:rgba(11,11,13,0.85);
+    backdrop-filter:blur(8px);
+    z-index:50;
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Anton';font-size:20px;letter-spacing:0.03em;}
+  .brand .dot{width:10px;height:10px;background:var(--amber);border-radius:50%;}
+  .navlinks{display:flex;gap:32px;font-size:14px;}
+  .navlinks a{text-decoration:none;color:var(--muted);transition:color .2s;}
+  .navlinks a:hover{color:var(--amber);}
+  .nav-cta{
+    background:var(--amber);color:var(--black);padding:10px 20px;
+    border-radius:2px;font-weight:600;font-size:14px;text-decoration:none;
+  }
+
+  /* HERO */
+  .hero{
+    padding:14vh 6vw 10vh;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono';
+    font-size:12px;
+    color:var(--amber);
+    letter-spacing:0.18em;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{content:'';width:24px;height:1px;background:var(--amber);}
+  .hero h1{
+    font-size:clamp(48px,7.5vw,92px);
+    line-height:0.98;
+  }
+  .hero h1 span{color:var(--amber);}
+  .hero p.lead{
+    margin-top:24px;
+    font-size:18px;
+    color:var(--muted);
+    max-width:480px;
+    line-height:1.6;
+  }
+  .hero-actions{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--amber);color:var(--black);padding:16px 30px;
+    font-weight:700;font-size:15px;text-decoration:none;border-radius:2px;
+    border:none;cursor:pointer;
+  }
+  .btn-ghost{
+    border:1px solid var(--line);color:var(--cream);padding:16px 30px;
+    font-weight:600;font-size:15px;text-decoration:none;border-radius:2px;
+    background:transparent;
+  }
+
+  /* scrub bar visual - signature element */
+  .scrubvis{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:18px;
+  }
+  .scrub-head{display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:11px;color:var(--muted);margin-bottom:12px;}
+  .clip-row{display:flex;gap:3px;height:48px;margin-bottom:8px;}
+  .clip{flex:1;background:linear-gradient(180deg, var(--rust), #5e2620);border-radius:2px;position:relative;overflow:hidden;}
+  .clip:nth-child(2n){background:linear-gradient(180deg, var(--amber), #a86c1c);}
+  .clip:nth-child(3n){background:linear-gradient(180deg, #4a4750, #2c2a31);}
+  .waveform{display:flex;gap:3px;height:28px;align-items:center;}
+  .waveform span{flex:1;background:var(--line);border-radius:1px;}
+  .playhead{
+    width:2px;background:var(--cream);height:84px;position:relative;left:38%;
+    box-shadow:0 0 8px var(--cream);
+  }
+
+  /* SECTIONS */
+  section{padding:11vh 6vw;border-bottom:1px solid var(--line);}
+  .section-tag{
+    font-family:'JetBrains Mono';font-size:12px;color:var(--amber);
+    letter-spacing:0.18em;margin-bottom:14px;
+  }
+  .section-title{font-size:clamp(30px,4vw,46px);max-width:680px;}
+
+  /* SERVICES */
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    margin-top:50px;background:var(--line);
+  }
+  .service-card{
+    background:var(--black);padding:36px 28px;
+  }
+  .service-num{font-family:'JetBrains Mono';color:var(--rust);font-size:13px;margin-bottom:30px;}
+  .service-card h3{font-size:22px;margin-bottom:12px;}
+  .service-card p{color:var(--muted);font-size:14.5px;line-height:1.6;}
+
+  /* PROCESS */
+  .process-row{display:flex;gap:0;margin-top:50px;border-top:1px solid var(--line);}
+  .process-step{flex:1;padding:30px 24px;border-right:1px solid var(--line);}
+  .process-step:last-child{border-right:none;}
+  .process-step .pn{font-family:'Anton';font-size:38px;color:var(--panel-2);-webkit-text-stroke:1px var(--amber);color:transparent;display:block;margin-bottom:16px;}
+  .process-step h4{font-size:16px;text-transform:uppercase;margin-bottom:10px;letter-spacing:0.04em;}
+  .process-step p{font-size:13.5px;color:var(--muted);line-height:1.5;}
+
+  /* FORM SECTION */
+  .form-wrap{
+    margin-top:50px;display:grid;grid-template-columns: 1fr 1.4fr;gap:60px;
+  }
+  .form-side h3{font-size:22px;margin-bottom:16px;line-height:1.3;}
+  .form-side p{color:var(--muted);font-size:14.5px;line-height:1.7;margin-bottom:20px;}
+  .form-side ul{padding:0;margin:0;list-style:none;}
+  .form-side li{
+    font-size:13.5px;color:var(--muted);padding:10px 0;border-top:1px solid var(--line);
+    display:flex;gap:10px;
+  }
+  .form-side li::before{content:'▸';color:var(--amber);}
+
+  form{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:32px;}
+  .field{margin-bottom:20px;}
+  label{display:block;font-size:12px;font-family:'JetBrains Mono';color:var(--muted);margin-bottom:8px;letter-spacing:0.05em;text-transform:uppercase;}
+  input,textarea,select{
+    width:100%;background:var(--black);border:1px solid var(--line);color:var(--cream);
+    padding:13px 14px;border-radius:3px;font-family:'Inter';font-size:14.5px;
+  }
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--amber);outline-offset:1px;}
+  textarea{resize:vertical;min-height:100px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .submit-btn{
+    width:100%;background:var(--amber);color:var(--black);padding:16px;
+    font-weight:700;font-size:15px;border:none;border-radius:3px;cursor:pointer;
+    margin-top:6px;
+  }
+  .submit-btn:hover{background:#ff5563;}
+  .hint{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5;}
+
+  /* PAYMENT REVEAL */
+  #payment-block{
+    display:none;margin-top:24px;background:var(--black);border:1px solid var(--amber);
+    border-radius:6px;padding:26px;
+  }
+  #payment-block.show{display:block;animation:fadein .4s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  #payment-block h4{font-size:16px;margin-bottom:10px;letter-spacing:0.04em;}
+  .upi-row{
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--panel);border:1px solid var(--line);border-radius:4px;
+    padding:14px 16px;margin-top:14px;
+  }
+  .upi-id{font-family:'JetBrains Mono';font-size:15px;color:var(--amber);}
+  .copy-btn{
+    background:transparent;border:1px solid var(--amber);color:var(--amber);
+    padding:8px 14px;border-radius:3px;font-size:12px;cursor:pointer;font-family:'JetBrains Mono';
+  }
+  .copy-btn:hover{background:var(--amber);color:var(--black);}
+  #payment-block p{color:var(--muted);font-size:13.5px;margin-top:12px;line-height:1.6;}
+
+  /* CONTACT FOOTER */
+  footer{padding:8vh 6vw 5vh;}
+  .foot-grid{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px;}
+  footer .brand{margin-bottom:14px;}
+  .foot-links{display:flex;gap:30px;font-size:14px;}
+  .foot-links a{text-decoration:none;color:var(--muted);}
+  .foot-links a:hover{color:var(--amber);}
+  .copyright{font-size:12px;color:var(--muted);margin-top:40px;font-family:'JetBrains Mono';}
+
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:1fr;}
+    .process-row{flex-wrap:wrap;}
+    .process-step{flex:1 1 50%;border-bottom:1px solid var(--line);}
+    .form-wrap{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .navlinks{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sprocket"></div>
+
+<nav>
+  <div class="brand"><span class="dot"></span>RAJPUT EDITING HUB</div>
+  <div class="navlinks">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#request">Send a project</a>
+  </div>
+  <a href="#request" class="nav-cta">Start a project</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">VIDEO EDITING, ON YOUR TIMELINE</div>
+      <h1>WE CUT.<br>YOU <span>GROW.</span></h1>
+      <p class="lead">Send your raw footage and a quick note on what you need — reels, YouTube videos, wedding films, ads. You'll get a quote back fast, and a polished edit without the back-and-forth.</p>
+      <div class="hero-actions">
+        <a href="#request" class="btn-primary">Send your video & query</a>
+        <a href="#services" class="btn-ghost">See what I edit</a>
+      </div>
+    </div>
+    <div class="scrubvis">
+      <div class="scrub-head"><span>TIMELINE_01.PROJ</span><span>00:02:14:08</span></div>
+      <div class="clip-row">
+        <div class="clip"></div><div class="clip"></div><div class="clip"></div>
+        <div class="clip"></div><div class="clip"></div><div class="clip"></div>
+        <div class="clip"></div><div class="clip"></div>
+      </div>
+      <div class="waveform">
+        <span style="height:8px"></span><span style="height:22px"></span><span style="height:14px"></span>
+        <span style="height:26px"></span><span style="height:10px"></span><span style="height:18px"></span>
+        <span style="height:24px"></span><span style="height:12px"></span><span style="height:20px"></span>
+        <span style="height:9px"></span><span style="height:16px"></span><span style="height:28px"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-tag">WHAT I EDIT</div>
+  <h2 class="section-title">Pick a lane, or send something unusual — I'll figure it out.</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01 / SOCIAL</div>
+      <h3>Reels & Shorts</h3>
+      <p>Fast cuts, captions, trending transitions. Built to stop the scroll on Instagram, YouTube Shorts, and TikTok.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02 / LONGFORM</div>
+      <h3>YouTube Videos</h3>
+      <p>Vlogs, tutorials, podcasts — full edit with pacing, sound design, graphics, and thumbnail if you need one.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03 / EVENTS</div>
+      <h3>Wedding & Events</h3>
+      <p>Cinematic highlight reels and full-length event films from multi-camera footage.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04 / COMMERCE</div>
+      <h3>Ads & Promos</h3>
+      <p>Product videos and promo ads cut for conversion — clean, punchy, on-brand.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05 / COLOR & AUDIO</div>
+      <h3>Color Grading & Mix</h3>
+      <p>Standalone color correction, grading, or audio cleanup and mixing for footage you've already cut.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06 / CUSTOM</div>
+      <h3>Something else?</h3>
+      <p>Motion graphics, subtitles, translations, archive restoration — describe it in the form and I'll quote it.</p>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="section-tag">HOW IT WORKS</div>
+  <h2 class="section-title">Four steps from raw footage to finished cut.</h2>
+  <div class="process-row">
+    <div class="process-step">
+      <span class="pn">01</span>
+      <h4>Send footage & brief</h4>
+      <p>Fill the form below with a drive/cloud link to your footage and what you want done.</p>
+    </div>
+    <div class="process-step">
+      <span class="pn">02</span>
+      <h4>Get a quote</h4>
+      <p>I review and reply with turnaround time and price, usually within a day.</p>
+    </div>
+    <div class="process-step">
+      <span class="pn">03</span>
+      <h4>Confirm & pay</h4>
+      <p>Once you confirm, you'll get payment details to lock in the project.</p>
+    </div>
+    <div class="process-step">
+      <span class="pn">04</span>
+      <h4>Review & deliver</h4>
+      <p>You get a draft to review, request changes, then receive the final export.</p>
+    </div>
+  </div>
+</section>
+
+<section id="request">
+  <div class="section-tag">START A PROJECT</div>
+  <h2 class="section-title">Tell me about your footage and what you need.</h2>
+
+  <div class="form-wrap">
+    <div class="form-side">
+      <h3>Before you submit</h3>
+      <p>I can't accept video files through this form directly — instead, upload your footage to Google Drive, WeTransfer, or Dropbox, set sharing to "anyone with the link," and paste that link below.</p>
+      <ul>
+        <li>Upload footage to Drive / WeTransfer / Dropbox first</li>
+        <li>Set the link to "anyone with the link can view"</li>
+        <li>Describe the edit style, length, and deadline</li>
+        <li>You'll see payment details after submitting</li>
+      </ul>
+    </div>
+
+    <div>
+      <form id="projectForm">
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" required placeholder="Full name">
+          </div>
+          <div class="field">
+            <label for="contact">Email or phone</label>
+            <input type="text" id="contact" required placeholder="you@example.com">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="filelink">Footage link (Drive / WeTransfer / Dropbox)</label>
+          <input type="url" id="filelink" required placeholder="https://drive.google.com/...">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="type">Project type</label>
+            <select id="type">
+              <option>Reel / Short</option>
+              <option>YouTube video</option>
+              <option>Wedding / Event film</option>
+              <option>Ad / Promo</option>
+              <option>Color grading / Audio only</option>
+              <option>Other (describe below)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="deadline">Needed by</label>
+            <input type="date" id="deadline">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="query">Your editing query / brief</label>
+          <textarea id="query" required placeholder="What do you want done? Style, length, references, anything specific..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit project request</button>
+        <p class="hint">After submitting, you'll see UPI payment details on this page — please wait for me to confirm the quote before paying.</p>
+      </form>
+
+      <div id="payment-block">
+        <h4>✓ Got it — here's how to pay once we've confirmed your quote</h4>
+        <div class="upi-row">
+          <span class="upi-id" id="upiId">namangopalt@oksbi</span>
+          <button class="copy-btn" id="copyBtn">Copy UPI ID</button>
+        </div>
+        <p>Pay via any UPI app (Google Pay, PhonePe, Paytm) using this ID. <strong>Please don't pay until I've confirmed the price and turnaround with you directly</strong> — I'll reach out using the contact info you submitted.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="brand">RAJPUT EDITING HUB</div>
+      <p style="color:var(--muted);font-size:14px;max-width:380px;">Video editing for creators, brands, and couples — reels to full films.</p>
+    </div>
+    <div class="foot-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#request">Send a project</a>
+    </div>
+  </div>
+  <div class="copyright">© 2026 RAJPUT EDITING HUB. ALL EDITS FINAL ONLY AFTER YOUR APPROVAL.</div>
+</footer>
+
+<div class="sprocket bottom"></div>
+
+<script>
+  document.getElementById('projectForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('payment-block').classList.add('show');
+    document.getElementById('payment-block').scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    const id = document.getElementById('upiId').textContent;
+    navigator.clipboard.writeText(id).then(()=>{
+      this.textContent = 'Copied!';
+      setTimeout(()=>{ this.textContent = 'Copy UPI ID'; }, 1500);
+    });
+  });
+</script>
+
+</body>
+</html>
